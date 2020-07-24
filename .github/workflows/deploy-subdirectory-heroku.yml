@@ -1,0 +1,20 @@
+name: Manual Heroku deployment
+on: 
+  workflow_dispatch:
+    inputs:
+      message:
+        description: 'Deployment message'     
+        required: true
+        default: 'Message'
+jobs:
+  build:
+    name: Deploy strapi
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.2.6
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+          appdir: "strapi"
